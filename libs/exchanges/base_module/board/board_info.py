@@ -56,7 +56,6 @@ class BoardInfo(BoardInfoTypeA, BoardInfoTypeB):
             if len(board_que) != 0:
                 if not flag:
                     self._logger.error("miss board event")
-                #                self._logger.debug( "board event : call {} {}".format(handler.__module__, handler.__name__) )
                 try:
                     handler()
                 except Exception as e:

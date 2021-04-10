@@ -20,25 +20,51 @@ class ProfitGraph(object):
         self._strategy = strategy
         self._lock = lock
 
-    def plot(self, image_file, ws, fmt='%H:%M', rotate=0 ):
+    def plot(self, image_file, ws, daily=True, fmt='%H:%M', rotate=0 ):
         if self._logger.discord.webhook!='' :
-            Thread(target=self._plot, args=(image_file,ws,fmt,rotate,)).start()
+            Thread(target=self._plot, args=(image_file,ws,daily,fmt,rotate,)).start()
 
-    def _plot(self, image_file, ws, fmt, rotate):
-        org_stats = self._stats.get_stats()
+    def _plot(self, image_file, ws, daily=True, fmt='%H:%M', rotate=0):
+        if daily :
+            org_stats = self._stats.get_stats()
+        else:
+            org_stats = self._stats.get_all_stats()
         if len(org_stats)==0 :
             return
 
-        t=0
-        stats=[]
-        for s in org_stats:
-            if s['timestamp']-t>20 and time.time()-s['timestamp']<86400 :
-                stats.append(s)
-                t=s['timestamp']
-        stats.append(org_stats[-1])
+        if daily :
+            # 日次モード
+            t=0
+            stats=[]
+            for s in org_stats:
+                if t+20 < s['timestamp'] and time.time()-s['timestamp']<86400 :
+                    stats.append(s)
+                    t=s['timestamp']
+            stats.append(org_stats[-1])
+        else:
+            # 長期モード
+            cumsum = 0
+            t=0
+            last_day = (datetime.utcfromtimestamp(org_stats[0]['timestamp'])+timedelta(hours=9)).day
+            last_profit = 0
+            stats=[]
+            last = org_stats[-1]['profit']
+            for s in org_stats:
+                if (t+600 <= s['timestamp'] or s.get('keep',False)) and time.time()-s['timestamp']<86400*90 :
+                    # 日付が変わったら変わる直前の最後の損益までを加算
+                    day = (datetime.utcfromtimestamp(s['timestamp'])+timedelta(hours=9)).day
+                    if last_day != day :
+                        cumsum += last_profit
+                    last_day = day
+                    last_profit = s['profit']
+                    s['profit'] += cumsum
+                    stats.append(s)
+                    t=s['timestamp']
+            org_stats[-1]['profit'] = last+cumsum
+            stats.append(org_stats[-1])
 
         history_timestamp = [s['timestamp'] for s in stats]
-        price_history_raw = [ws.units()['unitrate']*(s['profit']-stats[0]['profit']) for s in stats]
+        price_history_raw = [(1 if ws.units()['unitrate']==1 else s['ltp'])*(s['profit']-stats[0]['profit']) for s in stats]
         price_history = list(pandas.Series(price_history_raw).rolling(window=20, min_periods=1).mean())
         price_history[-1] = price_history_raw[-1]
 
@@ -143,6 +169,6 @@ class ProfitGraph(object):
 
             self._logger.info("[plot] Finish plotting profit graph in {:.2f}sec".format(time.time()-start) )
 
-        message = '{} 損益通知 Profit:{:+.0f}'.format((datetime.utcnow()+timedelta(hours=9)).strftime('%H:%M:%S'), price_history[-1])
+        message = '{} 損益通知 {} Profit:{:+.0f}'.format((datetime.utcnow()+timedelta(hours=9)).strftime('%H:%M:%S'), self._strategy, price_history[-1])
 
         self._logger.discord.send( message, image_file )

@@ -27,8 +27,8 @@ class Stats(object):
         self._stats_list.append(stat)
         self.file.add_data(stat)
 
-    # 0:00:01 に呼び出される
     def _daily_reset(self):
+        self._ws.add_stats(keep=True) # 日次の最後を保存
         self._ws.daily_reset() # wsに登録されているリセット関数を呼び出す（基本はこのクラスのself.daily_resetだが、pos_server稼働時にはオーバーライドされたdaily_resetになる)
         self._stats_list=[]
 
@@ -42,9 +42,8 @@ class Stats(object):
         # 昨日以前のデータは１時間に１個に間引く
         ts=0
         past_stats = []
-        for i in range(len(tmp_stats)):
-            s=tmp_stats[i]
-            if ts+3600 <= s['timestamp'] and s['timestamp']<jst_zero :
+        for s in tmp_stats:
+            if (ts+3600 <= s['timestamp'] or s.get('keep',False)) and s['timestamp']<jst_zero :
                 past_stats.append(s)
                 ts = s['timestamp']
             
@@ -61,8 +60,11 @@ class Stats(object):
     def get_stats(self):
         return deepcopy(self._stats_list)
 
+    def get_all_stats(self):
+        return self.file.reload_file(self._filename)
+
     # 以下の関数はpos_serverの時には置き換え
-    def add_stats(self):
+    def add_stats(self, keep=False):
         return {
                'timestamp': time.time(),
 
@@ -84,6 +86,8 @@ class Stats(object):
 
                'exec_vol': self._ws.my.order.executed_size,
                'exec_vol_day': self._ws.my.daily_exec_size,
+
+               'keep':keep,
                }
 
     def daily_reset(self):

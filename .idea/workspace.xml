@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="47a454ef-15a0-4ccc-ba32-7140a6faad92" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="47a454ef-15a0-4ccc-ba32-7140a6faad92" name="Default Changelist" comment="2021/4/10 initial commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/base_strategy.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/base_strategy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/exchanges/base_module/board/board_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/exchanges/base_module/board/board_info.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/plot/pos_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/plot/pos_graph.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/plot/prof_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/plot/prof_graph.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/utils/mylogger.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/utils/mylogger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/utils/stats.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/utils/stats.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/version.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/version.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,15 +42,22 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/exchanges/base_module" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/libs/exchanges/base_module" />
+      <recent name="$PROJECT_DIR$/libs/exchanges/base_module/auth" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/libs/exchanges/bitfinex" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/strategy" />
+      <recent name="$PROJECT_DIR$/libs/utils" />
+      <recent name="$PROJECT_DIR$/libs/plot" />
+      <recent name="$PROJECT_DIR$/libs/market" />
+      <recent name="$PROJECT_DIR$/libs" />
+      <recent name="$PROJECT_DIR$/libs/database" />
     </key>
   </component>
   <component name="RunManager" selected="Python.trade">
@@ -173,7 +188,30 @@
       <option name="presentableId" value="Default" />
       <updated>1617376516558</updated>
     </task>
+    <task id="LOCAL-00001" summary="2021/4/10 initial commit">
+      <created>1618044403233</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1618044403233</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="2021/4/10 initial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="2021/4/10 initial commit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

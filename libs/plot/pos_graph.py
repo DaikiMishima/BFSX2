@@ -54,10 +54,10 @@ class PositionGraph(object):
         leverage = [abs(s['current_pos']) for s in stats]
         average = [(round(s['average'],1) if s['average']!=0 else s['ltp']) for s in stats]
         if self.setting.get('plot_fixed_pnl',False) :
-            profit = [ws.units()['unitrate']*s['fixed_profit'] for s in stats]
+            profit = [(1 if ws.units()['unitrate']==1 else s['ltp'])*s['fixed_profit'] for s in stats]
         else:
-            profit = [ws.units()['unitrate']*s['profit'] for s in stats]
-        commission = [ws.units()['unitrate']*s['commission'] for s in stats]
+            profit = [(1 if ws.units()['unitrate']==1 else s['ltp'])*s['profit'] for s in stats]
+        commission = [(1 if ws.units()['unitrate']==1 else s['ltp'])*s['commission'] for s in stats]
         lantency_np = np.array([s['lantency'] for s in org_stats])
         lantency_std = lantency_np.std()
         lantency_mean = lantency_np.mean()

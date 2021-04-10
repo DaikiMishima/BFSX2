@@ -136,7 +136,7 @@ class MyLogger(object):
             self._current_console_log_level = console_log_level
             self._current_file_log_level = file_log_level
 
-            self.info("Initialize logger : BFS-X {}".format(self._version_str))
+            self.info("Initialize logger : BFSX2 {}".format(self._version_str))
 
             # ログの圧縮を別スレッドで起動
             if previous_filename != '':

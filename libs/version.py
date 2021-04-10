@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-version_str='Ver 0.82'
+version_str='Ver 0.89'

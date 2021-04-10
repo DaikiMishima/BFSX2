@@ -21,7 +21,7 @@ class Strategy:
 
     def Scheduler(self, interval=1, basetime=None, callback=None, args=()):
         from libs.utils.scheduler import Scheduler
-        Scheduler(self._logger, interval=interval, basetime=basetime, callback=callback, args=args)
+        return Scheduler(self._logger, interval=interval, basetime=basetime, callback=callback, args=args)
 
     def ExecutionQueue(self, callback, ws=None):
         from collections import deque
@@ -84,6 +84,9 @@ class Strategy:
     def getcollateral_api(self):
         return self.api.getcollateral()
 
+    @property
+    def collateral_rate(self):
+        return self.ws.units()['unitrate']
 
     def set_parameters(self, trade_param, strategy_param):
         self._trade_param = trade_param
@@ -179,7 +182,10 @@ class Strategy:
 
     @property
     def canceled_history(self):
-        return self.ws.my.order._canceled_list
+        return self.ws.my.order.canceled_list
+
+    def get_historical_counter(self, sec):
+        return self.ws.my.order.historical_counter(sec)
 
     @property
     def log_folder(self):
