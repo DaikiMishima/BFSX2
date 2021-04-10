@@ -1,0 +1,48 @@
+#----------------------------------------------------------
+# 使用するStrategyファイル
+# 　※ 起動パラメータで下記のように指定した場合にはそちらが優先されます。
+#      例) python3 trade.py strategy/st_mfi.py strategy/st_mfi.yaml
+#----------------------------------------------------------
+
+strategy_py:   strategy/order_book.py
+strategy_yaml: strategy/order_book.yaml
+#strategy_py:   strategy/executions.py
+#strategy_yaml: strategy/executions.yaml
+
+#----------------------------------------------------------
+# 取引所とシンボル
+#
+# exchange : bitFlyer / GMO / bybit / phemex
+#
+# testnet : True/False  (bybit/phemexで有効)
+#
+# symbol: FX_BTC_JPY / BTC_JPY /ETH_JPY  (bitFlyer)
+#         BTC_JPY / BTC          (GMO)
+#         BTCUSD                 (bybit)
+#         BTCUSD                 (phemex)
+#----------------------------------------------------------
+
+exchange: bitFlyer
+testnet: false
+symbol: FX_BTC_JPY
+
+
+#----------------------------------------------------------
+# apikey/secret
+#----------------------------------------------------------
+
+apikey: ''
+secret: ''
+
+
+
+#----------------------------------------------------------
+base_position : 0.0 
+
+adjust_position_with_api : false      # [稼働後変更不可]  定期的にAPIでポジション取得してズレがあれば補正する
+adjust_max_size : 0.5                 # ポジズレの補正時に発注する最大ロット数（大きくずれた際に一度に補正しないように）
+
+#pos_server : ['localhost', 51000]    # [稼働後変更不可]  ポジションサーバーへの接続
+
+console_log_level : INFO              # DEBUG / INFO / WARNING / ERROR
+console_output : true                 # コンソール出力を行わず、代わりにログフォルダに console.txt というファイルで出力する
